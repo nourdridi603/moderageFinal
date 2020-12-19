@@ -37,11 +37,31 @@ class SondeController extends AbstractController
             $admin->setPassword($encoded);
             $manager->persist($admin);
             $manager->flush();
+            return $this->redirectToRoute('accueil');
         }
             return $this->render('sonde/inscription.html.twig', [
                 'form' => $form->createView()
                 
             ]);
     }
+    
+
+    /**
+     * @Route("/accueilSonde", name="accueilsonde")
+     */
+    public function accueilSonde(): Response
+    {
+        return $this->render('sonde/accueil_sonde.html.twig');
+    }
+
+
+     /**
+     * @Route("/", name="accueil")
+     */
+    public function accueil(): Response
+    {
+        return $this->render('accueil.html.twig');
+    }
+
 
 }

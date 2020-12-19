@@ -26,7 +26,7 @@ class EnqueteurController extends AbstractController
     /**
      * @Route("/inscriptionEnqueteur",name="addEnqueteur")
      */
-    public function addAdmin(UserPasswordEncoderInterface $encoder,Request $req){
+    public function addEnqueteur(UserPasswordEncoderInterface $encoder,Request $req){
 
         $admin=new User();
         $form = $this->createForm(EnqueteurType::class, $admin);
@@ -43,5 +43,13 @@ class EnqueteurController extends AbstractController
                 'form' => $form->createView()
                 
             ]);
+    }
+
+     /**
+     * @Route("/accueilEnqueteur", name="accueilEnqueteur")
+     */
+    public function accueilEnqueteur(): Response
+    {
+        return $this->render('Enqueteur\accueil_enqueteur.html.twig');
     }
 }
