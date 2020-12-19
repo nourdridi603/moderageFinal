@@ -25,7 +25,7 @@ class UserType extends AbstractType
         ->add('adresse',null,['label'=>'Votre adresse :  '])
         
         ->add('email',EmailType::class,['label'=>'Votre e-mail :  '])
-        ->add('password',PasswordType::class,['label'=>'Mot de passe :  '])
+        ->add('password',PasswordType::class,['label'=>'Mot de passe :  ','required'=>false])
         ->add('cin',null,['label'=>'Votre CIN :  '])
         ->add('tel',TelType::class,['label'=>'Votre numéro de téléphone :  '])
         ->add('dateNaissance',DateType::class,[

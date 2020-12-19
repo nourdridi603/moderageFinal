@@ -1,0 +1,51 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<ul class="a">
+    <img src="https://scontent.ftun2-1.fna.fbcdn.net/v/t1.15752-9/129516733_1070227883401672_4190008357141565674_n.png?_nc_cat=102&ccb=2&_nc_sid=ae9488&_nc_ohc=gCqGsGF6InkAX_tf-3C&_nc_ht=scontent.ftun2-1.fna&oh=f41d891f6dcc6809fc2a88bb5f7fd105&oe=5FF425DC">
+</ul>
+ <div style="width: 1300px;
+            height: 500px;
+            align-content: center;
+            background-color:  #c3cff1;
+            margin-top: 30px ;
+            margin-left: 30px;" >
+{{ form_start(form) }}
+<br>
+<h1 style=" margin-left: 20px;"> Choisir un type de rémunération : </h1><br>
+<div class="container" style="  border:1px solid  #0A1538 ;border-radius:5px;margin-left: 100px; width: 450px; height: 300px; ">
+    <br><br>
+    <div style=" margin-left: -10px; ">
+        <input type='radio' id='chk' name="r"  /> 
+        <label >Cadeau :</label> 
+    </div> <br>
+    <div id="myDiv" style="margin-left: 30px;">
+        {{ form_row(form.contenu,{'attr':{'class':'form-control'}}) }} 
+        {{form_rest(form,{'attr':{'class':'form-control'}})}}
+    <br>
+  <button  class="btn btn-primary" style="background-color:white; color: #0A1538; border-color:#0A1538 ;margin-left: -15px; ">Terminer</button>
+
+</div>
+{{ form_end(form) }}
+
+
+
+
+{{ form_start(form1) }}
+<div class="container" style=" border:1px solid  #0A1538 ;border-radius:5px; margin-left: 520px; width: 480px; height: 300px; margin-top: -275px; float: left;">
+   <br><br>
+    <div style=" margin-left: -10px; ">
+        <input type='radio' id='chk1'  name="r"/> 
+        <label >Remise :</label> 
+    </div> <br>
+    <div id="myDiv1" style="margin-left: 30px;">
+        {{ form_row(form1.pourcentage,{'attr':{'class':'form-control'}}) }}
+    </div><br><br><br><br>
+    <button  class="btn btn-primary" style="background-color:white; color: #0A1538;margin-left: 15px;margin-top: 0px; border-color:#0A1538">Terminer</button>
+  </div>
+{{ form_end(form1) }}
+
+<button  class="btn btn-primary" style="background-color:white; color: #0A1538; border-color:#0A1538 ; margin-top: 40px; margin-left: 1000px;"><a  href="{{ path('AjoutRemun')}}" style="color: #0A1538;">Ajouter un type</a></button>
+</div>
+{% endblock %}

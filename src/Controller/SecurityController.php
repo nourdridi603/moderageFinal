@@ -42,7 +42,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/enqueteur",name="e")
+     * @Route("/enqueteur",name="enqueteur")
      */
     public function welcomeEnqueteur(){
         return  $this->render("security/welcomeEnqueteur.html.twig");

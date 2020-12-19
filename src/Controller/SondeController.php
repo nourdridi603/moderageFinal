@@ -64,4 +64,28 @@ class SondeController extends AbstractController
     }
 
 
+    /**
+ * @Route("update/sonde",name="updateutilisateur")
+ */
+public function updateUtilisateur(Request $req,UserPasswordEncoderInterface $encoder){
+    $user=$this->getUser();
+    $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($req);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $encoded = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($encoded);
+            $this->getDoctrine()->getManager()->flush();
+
+            //return $this->redirectToRoute('sondage_index');
+        }
+        
+
+        return $this->render('sonde/edit.html.twig', [
+            'utilisateur' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
 }

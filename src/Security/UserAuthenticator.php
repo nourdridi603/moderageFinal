@@ -101,16 +101,16 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         $tab=$user->getRoles();
         while($i<\count($tab)){
             if($tab[$i]=="Enqueteur"){
-                return new RedirectResponse($this->urlGenerator->generate('e'));
+                return new RedirectResponse($this->urlGenerator->generate("enqueteur"));
             }
             else if($tab[$i]=="Sonde"){
-                return new RedirectResponse($this->urlGenerator->generate('s'));
+                return new RedirectResponse($this->urlGenerator->generate("s"));
             }
             else if($tab[$i]=="Admin"){
-                return new RedirectResponse($this->urlGenerator->generate('a'));
+                return new RedirectResponse($this->urlGenerator->generate("a"));
             }
             else{
-                return new RedirectResponse($this->urlGenerator->generate('c'));
+                return new RedirectResponse($this->urlGenerator->generate("c"));
             }
         }
 
