@@ -11,11 +11,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
     use Symfony\Component\Form\Extension\Core\Type\TextType;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class OptionController extends AbstractController
 {
     /**
-     * @Route("/", name="option_index", methods={"GET"})
+     * @Route("/options", name="option_index", methods={"GET"})
      */
     public function index(OptionRepository $optionRepository): Response
     {
@@ -51,9 +52,11 @@ class OptionController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/{id}", name="option_show", methods={"GET"})
-     */
+     * @Route("option/{id}", name="option_show")
+     * @ParamConverter("option", class="Option:Post")
+     **/
     public function show(Option $option): Response
     {
         return $this->render('option/show.html.twig', [
@@ -62,7 +65,7 @@ class OptionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="option_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="option_edit")
      */
     public function edit(Request $request, Option $option): Response
     {

@@ -10,12 +10,13 @@ use App\Repository\SondageRepository;
 use App\Repository\QuestionLogiqueRepository;
 use App\Form\QuestionType;
 use App\Entity\QuestionLogique;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class QuestionLogiqueController extends AbstractController
 {
     
     /**
-     * @Route("/", name="question_index", methods={"GET"})
+     * @Route("/questions", name="question_index", methods={"GET"})
      */
     public function index(QuestionLogiqueRepository $questionRepository): Response
     {
@@ -52,7 +53,8 @@ class QuestionLogiqueController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="question_show", methods={"GET"})
+     * @Route("question/{id}", name="question_show")
+     * @ParamConverter("question", class="QuestionLogique:Post")
      */
     public function show(QuestionLogique $question): Response
     {

@@ -1,20 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello QuestionLogiqueController!{% endblock %}
+{% block title %}Question index{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Question index</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Texte</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for question in questions %}
+            <tr>
+                <td>{{ question.id }}</td>
+                <td>{{ question.texte }}</td>
+                <td>
+                    <a href="{{ path('question_show', {'id': question.id}) }}">show</a>
+                    <a href="{{ path('question_edit', {'id': question.id}) }}">edit</a>
+                    <a href="{{ path('option_new', {'id': question.id}) }}">ajouter des options</a>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Mes Fichiers/Projet/Application Web/Futu/src/Controller/QuestionLogiqueController.php'|file_link(0) }}">src/Controller/QuestionLogiqueController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Mes Fichiers/Projet/Application Web/Futu/templates/question_logique/index.html.twig'|file_link(0) }}">templates/question_logique/index.html.twig</a></code></li>
-    </ul>
-</div>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{{ path('question_new' ,{'id':question.id} ) }}">Create new</a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}
