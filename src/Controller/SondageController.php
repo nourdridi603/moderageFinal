@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sondage;
-use App\Entity\Question;
+use App\Entity\QuestionLogique;
 use App\Form\SondageType;
 use App\Repository\SondageRepository;
 use App\Repository\SujetRepository;
@@ -86,7 +86,7 @@ class SondageController extends AbstractController
 
    
  /**
-     * @Route("/sondages/{id}",name="listesondage",methods="GET")
+     * @Route("/sondages",name="listesondage",methods="GET")
      */
     public function getSondages($id){
         $repo=$this->getDoctrine()->getRepository(Sondage::class);
@@ -110,22 +110,23 @@ class SondageController extends AbstractController
 
 
     /**
-     * @Route("/{idEnqueteur}", name="sondage_index", methods={"GET"})
+     * @Route("/detailSondage", name="sondage_index", methods={"GET"})
      */
-    public function index($idEnqueteur,SondageRepository $sondageRepository): Response
+    public function index(SondageRepository $sondageRepository): Response
     {
-        $sondages=$sondageRepository->findByIdEnqueteur($idEnqueteur);
+        $enqueteur=$this->getUser();
+        $sondages=$enqueteur->getSondages();
         foreach($sondages as $son)
         {    
             $em1=$this->getDoctrine()->getManager();
-            $NbrQuestion =count($em1->getRepository(Question::class)->findByNbrSondage($son->getId()));
+            $NbrQuestion =count($em1->getRepository(QuestionLogique::class)->findByNbrSondage($son->getId()));
             $son->setNbQuestion($NbrQuestion);
             $em1->flush();
         }
         
         return $this->render('sondage/index.html.twig', [
             'sondages' => $sondages,
-            'idEnqueteur'=>$idEnqueteur
+            'idEnqueteur'=>$enqueteur->getId()
             ]);
     }
     
@@ -161,13 +162,13 @@ class SondageController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/{idEnqueteur}", name="sondage_show", methods={"GET"})
+     * @Route("/{id}", name="sondage_show", methods={"GET"})
      */
-    public function show($idEnqueteur,Sondage $sondage): Response
+    public function show(Sondage $sondage): Response
     {
         return $this->render('sondage/show.html.twig', [
             'sondage' => $sondage,
-            'idEnqueteur'=>$idEnqueteur
+            'idEnqueteur'=>$this->getUser()->getId()
         ]);
     }
 
