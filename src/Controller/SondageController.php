@@ -44,8 +44,6 @@ class SondageController extends AbstractController
             $NbrSondage =count($em1->getRepository(Question::class)->findByNbrSondage($son->getId()));
             $son->setNbQuestion($NbrSondage );
             
-    
-
            $em1->flush();
         }
  

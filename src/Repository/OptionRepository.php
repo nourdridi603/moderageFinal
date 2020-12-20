@@ -19,6 +19,19 @@ class OptionRepository extends ServiceEntityRepository
         parent::__construct($registry, Option::class);
     }
 
+
+    /**
+      * @return Option[] Returns an array of Option objects
+    */
+    public function findByIdQuestion($idQuestion)
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.question = :val')
+            ->setParameter('val', $idQuestion)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     // /**
     //  * @return Option[] Returns an array of Option objects
     //  */
