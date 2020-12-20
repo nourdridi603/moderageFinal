@@ -36,7 +36,7 @@
       
 
       </ul>
-               <a style=" margin:1% color:#10aeda; border-color: #10aeda; background-color:#10aeda; "class="btn btn-primary"  href="{{path('accueil')}}">Se déconnecter</a>
+               <a style=" margin:1% color:#10aeda; border-color: #10aeda; background-color:#10aeda; "class="btn btn-primary"  href="{{path('app_logout')}}">Se déconnecter</a>
 
     </div>
   </div>
@@ -56,7 +56,7 @@
 
         <img alt="sujet" style=" height: 89px;
 " src="https://scontent.ftun4-1.fna.fbcdn.net/v/t1.15752-9/131304739_226292455677976_1305033030657955001_n.png?_nc_cat=106&ccb=2&_nc_sid=ae9488&_nc_ohc=lVPSBxMcdK8AX-zSX_d&_nc_ht=scontent.ftun4-1.fna&oh=ef15768880c6cec375af547af300c3ef&oe=5FFCE80A" />
-          <form action="{{path('listesondage')}}" method="get">
+          <form action="{{path('listesondage',{'id':app.user.id})}}" method="get">
            <button type="submit" class="w-100 btn btn-lg btn-success" style="margin-top: 9%;" >Consulter</button>
         </form>
       </div>

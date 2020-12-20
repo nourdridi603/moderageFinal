@@ -3,79 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Sondage;
-use App\Entity\QuestionLogique;
+use App\Entity\Question;
 use App\Form\SondageType;
 use App\Repository\SondageRepository;
 use App\Repository\SujetRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/sondage")
+ */
 class SondageController extends AbstractController
 {
-   
-
-    /**
-     * @Route("/sondage_repondu",name="listeSondageRepondu")
-     */
-    public function listSondageRepondu(){
-        $user = $this->getUser();
-        $reponses=$user->getReponses();
-        //$i=0;
-        $sondages=[];
-        if($reponses!= null){
-            $i=0;
-            $longeur=\count($reponses);
-            while($i<$longeur){
-                if($reponses[$i]->getQuestionLogique()!=null){
-                    $sondage=$reponses[$i]->getQuestionLogique()->getSondage();
-                    if($sondages==null){
-                        array_push($sondages,$sondage);
-                    }
-                    else{
-                        $j=0;
-                        $longeur2=\count($sondages);
-                        $test=false;
-                        while($j<$longeur2){
-                            if($sondages[$j]->getTitre()==$sondage->getTitre()){
-                                $test=true;
-                            }
-                            $j++;
-                        }
-                        if($test==false){
-                            array_push($sondages,$sondage);
-                        }
-                    }
-                }
-                else{
-                    /** */
-                    $sondage=$reponses[$i]->getQuestionMultiChoix()->getSondage();
-                    if($sondages==null){
-                        array_push($sondages,$sondage);
-                    }
-                    else{
-                        $j=0;
-                        $longeur2=\count($sondages);
-                        $test=false;
-                        while($j<$longeur2){
-                            if($sondages[$j]->getTitre()==$sondage->getTitre()){
-                                $test=true;
-                            }
-                            $j++;
-                        }
-                        if($test==false){
-                            array_push($sondages,$sondage);
-                        }
-                    }
-                }
-                $i++;               
-        }
-        return $this->render('sondage/sondagerepondu.html.twig',['sondages'=>$sondages]);
-    }
-}
-
-
 
 /**
      * @Route("/paiementConsulting",name="paiementConsulting")
@@ -86,9 +28,9 @@ class SondageController extends AbstractController
 
    
  /**
-     * @Route("/sondages",name="listesondage",methods="GET")
+     * @Route("/sondages/{idSonde}",name="listesondage",methods="GET")
      */
-    public function getSondages($id){
+    public function getSondages($idSonde){
         $repo=$this->getDoctrine()->getRepository(Sondage::class);
         $sondages=$repo->findAll();
         
@@ -103,30 +45,29 @@ class SondageController extends AbstractController
  
         return $this->render('sondage/liste_sondage.html.twig',[
             'sondages'=>$sondages,
-            'id'=>$id
+            'id'=>$idSonde
             
         ]);
     }
 
 
     /**
-     * @Route("/detailSondage", name="sondage_index", methods={"GET"})
+     * @Route("/{idEnqueteur}", name="sondage_index", methods={"GET"})
      */
-    public function index(SondageRepository $sondageRepository): Response
+    public function index($idEnqueteur,SondageRepository $sondageRepository): Response
     {
-        $enqueteur=$this->getUser();
-        $sondages=$enqueteur->getSondages();
+        $sondages=$sondageRepository->findByIdEnqueteur($idEnqueteur);
         foreach($sondages as $son)
         {    
             $em1=$this->getDoctrine()->getManager();
-            $NbrQuestion =count($em1->getRepository(QuestionLogique::class)->findByNbrSondage($son->getId()));
+            $NbrQuestion =count($em1->getRepository(Question::class)->findByNbrSondage($son->getId()));
             $son->setNbQuestion($NbrQuestion);
             $em1->flush();
         }
         
         return $this->render('sondage/index.html.twig', [
             'sondages' => $sondages,
-            'idEnqueteur'=>$enqueteur->getId()
+            'idEnqueteur'=>$idEnqueteur
             ]);
     }
     
@@ -135,7 +76,7 @@ class SondageController extends AbstractController
     /**
      * @Route("/new/{idEnqueteur}/{idSujet}", name="sondage_new", methods={"GET","POST"})
      */
-    public function new($idEnqueteur, $idSujet,Request $request,SujetRepository $sujetRepository): Response
+    public function new($idEnqueteur, $idSujet,Request $request,SujetRepository $sujetRepository,UserRepository $enqueteurRepository): Response
     {
         $sondage = new Sondage();
         $form = $this->createForm(SondageType::class, $sondage);
@@ -162,13 +103,13 @@ class SondageController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="sondage_show", methods={"GET"})
+     * @Route("/{id}/{idEnqueteur}", name="sondage_show", methods={"GET"})
      */
-    public function show(Sondage $sondage): Response
+    public function show($idEnqueteur,Sondage $sondage): Response
     {
         return $this->render('sondage/show.html.twig', [
             'sondage' => $sondage,
-            'idEnqueteur'=>$this->getUser()->getId()
+            'idEnqueteur'=>$idEnqueteur
         ]);
     }
 
@@ -230,4 +171,5 @@ class SondageController extends AbstractController
     }
 
 
+    
 }

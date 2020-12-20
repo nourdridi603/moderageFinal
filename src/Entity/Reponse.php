@@ -23,11 +23,6 @@ class Reponse
     private $text;
 
     /**
-     * @ORM\ManyToOne(targetEntity=QuestionLogique::class, inversedBy="reponses")
-     */
-    private $questionLogique;
-
-    /**
      * @ORM\ManyToOne(targetEntity=QuestionChoixMultiples::class, inversedBy="reponses")
      */
     private $questionChoixMultiples;
@@ -36,6 +31,11 @@ class Reponse
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reponses")
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="reponses")
+     */
+    private $question;
 
     public function getId(): ?int
     {
@@ -54,17 +54,7 @@ class Reponse
         return $this;
     }
 
-    public function getQuestionLogique(): ?QuestionLogique
-    {
-        return $this->questionLogique;
-    }
-
-    public function setQuestionLogique(?QuestionLogique $questionLogique): self
-    {
-        $this->questionLogique = $questionLogique;
-
-        return $this;
-    }
+   
 
     public function getQuestionChoixMultiples(): ?QuestionChoixMultiples
     {
@@ -86,6 +76,18 @@ class Reponse
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getQuestion(): ?Question
+    {
+        return $this->question;
+    }
+
+    public function setQuestion(?Question $question): self
+    {
+        $this->question = $question;
 
         return $this;
     }

@@ -6,13 +6,15 @@
     <h3 style="color: white; margin-left: 50px;padding: 20px" >Creation des options</h3>
     <div style="margin-left: 400px " >
         Question: </br>
+        
         <input type="text" id="question" style='width:300px;margin-left:10px;height:25px;padding:12px; background-color: white'  value="{{ question.texte }}" disabled/>
+        
 
         {{ form_start(form) }}
     {{ form_widget(form) }}
         </br>
         <button class="SubmitType">{{ button_label|default('suivant') }}</button>
-        <button class="SubmitType" > <a style="color:black" href="{{ path('sondage_index') }}">annuler</a></button>
+        <button class="SubmitType" > <a style="color:black" href="{{ path('sondage_index',{'idEnqueteur':app.user.id}) }}">annuler</a></button>
 
         {{ form_end(form) }}
         </br>

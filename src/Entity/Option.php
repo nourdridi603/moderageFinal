@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=OptionRepository::class)
- * @ORM\Table(name="`option`")
  */
 class Option
 {
@@ -19,57 +18,41 @@ class Option
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $choix;
+    private $contenue;
 
     /**
-     * @ORM\ManyToOne(targetEntity=QuestionLogique::class, inversedBy="options")
+     * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="options")
+     * @ORM\JoinColumn(name="question_id" , referencedColumnName="id" )
      */
-    private $QuestionLogique;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=QuestionChoixMultiples::class, inversedBy="options")
-     */
-    private $questionChoixMultiples;
+    private $question;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getChoix(): ?string
+    public function getContenue(): ?string
     {
-        return $this->choix;
+        return $this->contenue;
     }
 
-    public function setChoix(string $choix): self
+    public function setContenue(?string $contenue): self
     {
-        $this->choix = $choix;
+        $this->contenue = $contenue;
 
         return $this;
     }
 
-    public function getQuestionLogique(): ?QuestionLogique
+    public function getQuestion(): ?Question
     {
-        return $this->QuestionLogique;
+        return $this->question;
     }
 
-    public function setQuestionLogique(?QuestionLogique $QuestionLogique): self
+    public function setQuestion(?Question $question): self
     {
-        $this->QuestionLogique = $QuestionLogique;
-
-        return $this;
-    }
-
-    public function getQuestionChoixMultiples(): ?QuestionChoixMultiples
-    {
-        return $this->questionChoixMultiples;
-    }
-
-    public function setQuestionChoixMultiples(?QuestionChoixMultiples $questionChoixMultiples): self
-    {
-        $this->questionChoixMultiples = $questionChoixMultiples;
+        $this->question = $question;
 
         return $this;
     }

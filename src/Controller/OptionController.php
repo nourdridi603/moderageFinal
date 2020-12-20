@@ -5,13 +5,15 @@ namespace App\Controller;
 use App\Entity\Option;
 use App\Form\OptionType;
 use App\Repository\OptionRepository;
-use App\Repository\QuestionLogiqueRepository;
+use App\Repository\QuestionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
     use Symfony\Component\Form\Extension\Core\Type\TextType;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+    use App\Entity\Question;
+    use App\Form\QuestionType;
 
 class OptionController extends AbstractController
 {
@@ -28,7 +30,7 @@ class OptionController extends AbstractController
     /**
      * @Route("/new/{idQuestion}/{idEnqueteur} ", name="option_new", methods={"GET","POST"})
      */
-    public function new($idQuestion,$idEnqueteur,Request $request, QuestionLogiqueRepository $questionRepository): Response
+    public function new($idQuestion,$idEnqueteur,Request $request, QuestionRepository $questionRepository): Response
     {
         $option = new Option();
         $form = $this->createForm(OptionType::class, $option);

@@ -6,22 +6,23 @@ use App\Entity\Option;
 use App\Entity\Sondage;
 use App\Form\SondageType;
 use App\Repository\SondageRepository;
-use App\Entity\QuestionLogique;
+use App\Entity\Question;
 use App\Form\QuestionType;
-use App\Repository\QuestionLogiqueRepository;
+use App\Repository\QuestionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 class BlogController extends AbstractController
 {
     /**
      * @Route("/creer/{id}", name="creersondage", methods={"GET","POST"})
      * @param SondageRepository $sondageRepository
-     * @param QuestionLogiqueRepository $questionRepository
+     * @param QuestionRepository $questionRepository
      * @return Response
      */
-    public function index($id, SondageRepository $sondageRepository, QuestionLogiqueRepository $questionRepository): Response
+    public function index($id, SondageRepository $sondageRepository, QuestionRepository $questionRepository): Response
     {
         return $this->render('sondage/creersondage.html.twig', [
             'sondage' => $sondageRepository->find($id),
@@ -33,10 +34,10 @@ class BlogController extends AbstractController
     /**
      * @Route("/sondageBlog", name="sondageBlog", methods={"GET"})
      * @param SondageRepository $sondageRepository
-     * @param QuestionLogiqueRepository $questionRepository
+     * @param QuestionRepository $questionRepository
      * @return Response
      */
-    public function sondage(SondageRepository $sondageRepository, QuestionLogiqueRepository $questionRepository): Response
+    public function sondage(SondageRepository $sondageRepository, QuestionRepository $questionRepository): Response
     {
         return $this->render('blog/sondage.html.twig', [
             'sondages' => $sondageRepository->findAll(),
@@ -48,10 +49,10 @@ class BlogController extends AbstractController
     /**
      * @Route("/affichersondage/{id}", name="affichersondage", methods={"GET"})
      * @param SondageRepository $sondageRepository
-     * @param QuestionLogiqueRepository $questionRepository
+     * @param QuestionRepository $questionRepository
      * @return Response
      */
-    public function affichersondage($id,SondageRepository $sondageRepository, QuestionLogiqueRepository $questionRepository): Response
+    public function affichersondage($id,SondageRepository $sondageRepository, QuestionRepository $questionRepository): Response
     {
 
         return $this->render('sondage/ajouter.html.twig', [
@@ -74,7 +75,7 @@ class BlogController extends AbstractController
      * @return \symfony\Component\HttpFoundation\Response
      */
 public function new(Request $request,$idSondage, $idEnqueteur, SondageRepository $sondageRepository):Response{
-    $question = new QuestionLogique();
+    $question = new Question();
 
 
     $form=$this->createForm(QuestionType::class,$question);

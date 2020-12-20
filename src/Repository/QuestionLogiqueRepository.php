@@ -47,4 +47,7 @@ class QuestionLogiqueRepository extends ServiceEntityRepository
         ;
     }
     */
+    /**
+     * 
+     */
 }

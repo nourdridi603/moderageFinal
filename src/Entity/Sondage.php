@@ -23,11 +23,10 @@ class Sondage
      * @ORM\Column(type="string", length=255)
      */
     private $titre;
-
-    /**
-     * @ORM\Column(type="integer")
+/**
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $nbParticiapants;
+    private $nbParticipant;
 
     /**
      * @ORM\Column(type="integer")
@@ -45,20 +44,23 @@ class Sondage
      */
     private $sujet;
 
-    /**
-     * @ORM\OneToMany(targetEntity=QuestionLogique::class, mappedBy="sondage")
-     */
-    private $questionLogiques;
+   
 
     /**
      * @ORM\OneToMany(targetEntity=QuestionChoixMultiples::class, mappedBy="sondage")
      */
     private $questionChoixMultiples;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="sondage")
+     */
+    private $questions;
+
     public function __construct()
     {
-        $this->questionLogiques = new ArrayCollection();
+       
         $this->questionChoixMultiples = new ArrayCollection();
+        $this->questions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -78,14 +80,14 @@ class Sondage
         return $this;
     }
 
-    public function getNbParticiapants(): ?int
+    public function getNbParticipant(): ?int
     {
-        return $this->nbParticiapants;
+        return $this->nbParticipant;
     }
 
-    public function setNbParticiapants(int $nbParticiapants): self
+    public function setNbParticipant(?int $nbParticipant): self
     {
-        $this->nbParticiapants = $nbParticiapants;
+        $this->nbParticipant = $nbParticipant;
 
         return $this;
     }
@@ -126,35 +128,7 @@ class Sondage
         return $this;
     }
 
-    /**
-     * @return Collection|QuestionLogique[]
-     */
-    public function getQuestionLogiques(): Collection
-    {
-        return $this->questionLogiques;
-    }
-
-    public function addQuestionLogique(QuestionLogique $questionLogique): self
-    {
-        if (!$this->questionLogiques->contains($questionLogique)) {
-            $this->questionLogiques[] = $questionLogique;
-            $questionLogique->setSondage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeQuestionLogique(QuestionLogique $questionLogique): self
-    {
-        if ($this->questionLogiques->removeElement($questionLogique)) {
-            // set the owning side to null (unless already changed)
-            if ($questionLogique->getSondage() === $this) {
-                $questionLogique->setSondage(null);
-            }
-        }
-
-        return $this;
-    }
+   
 
     /**
      * @return Collection|QuestionChoixMultiples[]
@@ -180,6 +154,36 @@ class Sondage
             // set the owning side to null (unless already changed)
             if ($questionChoixMultiple->getSondage() === $this) {
                 $questionChoixMultiple->setSondage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Question[]
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->questions;
+    }
+
+    public function addQuestion(Question $question): self
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->setSondage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(Question $question): self
+    {
+        if ($this->questions->removeElement($question)) {
+            // set the owning side to null (unless already changed)
+            if ($question->getSondage() === $this) {
+                $question->setSondage(null);
             }
         }
 
