@@ -12,7 +12,7 @@ use App\Form\QuestionType;
 use App\Entity\Question;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-class QuestionLogiqueController extends AbstractController
+class QuestionController extends AbstractController
 {
     
     /**

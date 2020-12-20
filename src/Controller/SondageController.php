@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Sondage;
+use App\Entity\Cadeau;
 use App\Entity\Question;
+use App\Entity\Remise;
+use App\Entity\NouveauType;
 use App\Form\SondageType;
 use App\Repository\SondageRepository;
 use App\Repository\SujetRepository;
@@ -40,12 +43,16 @@ class SondageController extends AbstractController
             $em1=$this->getDoctrine()->getManager();
             $NbrSondage =count($em1->getRepository(Question::class)->findByNbrSondage($son->getId()));
             $son->setNbQuestion($NbrSondage );
-            $em1->flush();
+            
+    
+
+           $em1->flush();
         }
  
         return $this->render('sondage/liste_sondage.html.twig',[
             'sondages'=>$sondages,
-            'id'=>$idSonde
+            'id'=>$idSonde,
+            
             
         ]);
     }

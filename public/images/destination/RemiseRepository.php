@@ -19,18 +19,22 @@ class RemiseRepository extends ServiceEntityRepository
         parent::__construct($registry, Remise::class);
     }
 
-     /**
-      * @return Remise[] Returns an array of Remise objects
-      */
-    public function findByIdSondage($value)
+    // /**
+    //  * @return Remise[] Returns an array of Remise objects
+    //  */
+    /*
+    public function findByExampleField($value)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.sondage = :val')
+            ->andWhere('r.exampleField = :val')
             ->setParameter('val', $value)
+            ->orderBy('r.id', 'ASC')
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
+    */
 
     /*
     public function findOneBySomeField($value): ?Remise

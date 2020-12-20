@@ -41,7 +41,12 @@ class Cadeau
      */
     private $updatedAt;
 
-    public function setImageFile(File $image = null)
+    /**
+     * @ORM\OneToOne(targetEntity=Sondage::class, cascade={"persist", "remove"})
+     */
+    private $sondage;
+
+    public function setImageFile( $image = null)
     {
         $this->imageFile = $image;
 
@@ -86,6 +91,18 @@ class Cadeau
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getSondage(): ?Sondage
+    {
+        return $this->sondage;
+    }
+
+    public function setSondage(?Sondage $sondage): self
+    {
+        $this->sondage = $sondage;
 
         return $this;
     }

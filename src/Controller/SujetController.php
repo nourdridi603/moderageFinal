@@ -10,6 +10,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Form\SujetType;
 use App\Entity\Sujet;
 use App\Repository\SujetRepository;
+/**
+    * @Route("/sujet")
+ */
 
 class SujetController extends AbstractController
 {

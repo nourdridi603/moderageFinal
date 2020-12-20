@@ -23,7 +23,7 @@ class SondeController extends AbstractController
     }
 
     /**
-     * @Route("/inscriptionSonde",name="addsonde")
+     * @Route("/utilisateur/inscription",name="addsonde")
      */
     public function addAdmin(UserPasswordEncoderInterface $encoder,Request $req){
 

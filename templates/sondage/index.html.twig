@@ -96,7 +96,7 @@
                 <th>Titre</th>
                 <th>Nombre de participant</th>
                 <th>Nombre de question</th>
-                <th>Nombre de reponses</th>
+               
                 <th> Actions </th>
             </tr>
         </thead>
@@ -107,8 +107,7 @@
             <td>{{ sondage.titre }}</td>
             <td>{{ sondage.nbParticipant }}</td>
             <td>{{ sondage.nbQuestion }}</td>
-            <td>{{ sondage.nbReponse }}</td>
-
+           
             <td>
                 
              <button  type="button1"  class="button1" > <a style="color:black"  href="{{ path('sondage_show', {'id': sondage.id , 'idEnqueteur': idEnqueteur }) }}">Consulter</a></button>

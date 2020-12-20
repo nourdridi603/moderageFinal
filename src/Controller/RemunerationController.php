@@ -13,8 +13,10 @@ use App\Form\NewRemunerationType ;
 use App\Form\RemiseType ;
 use App\Entity\Cadeau;
 use App\Entity\Remise;
+use App\Entity\Sondage;
 use App\Entity\NouveauType;
 use App\Repository\RemunerationRepository;
+use App\Repository\SondageRepository;
 
 
 
@@ -34,18 +36,23 @@ class RemunerationController extends AbstractController
         ]);
     }
      /**
-     * @Route("/ChoixRemun", name="ChoixRemun")
+     * @Route("/ChoixRemun/{idSondage}", name="ChoixRemun")
      */
-      public function ChoixRemun( Request $request){
-        
+      public function ChoixRemun($idSondage, Request $request ,  SondageRepository $sondageRepository){
+       
+   
+    
             $cadeau=new Cadeau();
+            $sondage = new Sondage();
+            $sondage=$sondageRepository->find($idSondage);
             $form= $this->createForm(CadeauType::class, $cadeau);
             $form->handleRequest($request);
     
             if ($form->isSubmitted() && $form->isValid()){
-            $this->em->persist($cadeau);
-            $this->em->flush();
-            return $this->redirectToRoute("ChoixRemun");
+                $cadeau->setSondage($sondage);
+                $this->em->persist($cadeau);
+                $this->em->flush();
+                return $this->redirectToRoute("ChoixRemun", ['idSondage'=> $idSondage]);
             }
                
             $remise=new Remise();
@@ -53,36 +60,41 @@ class RemunerationController extends AbstractController
             $form1->handleRequest($request);
          
             if ($form1->isSubmitted() && $form1->isValid()){
-               $this->em->persist($remise);
-               $this->em->flush();
-               return $this->redirectToRoute("ChoixRemun");
+                $remise->setSondage($sondage);
+                $this->em->persist($remise);
+                $this->em->flush();
+                return $this->redirectToRoute("ChoixRemun");
             }
             return $this->render('Remuneration/ChoixRemun.html.twig',[
                 'remise'=>$remise,
                 'cadeau'=>$cadeau,
+                'idSondage' => $idSondage,
                 'form1'=>$form1->createView(),
                 'form'=>$form->createView()
                     
                 ]);
             }
     /**
-     * @Route("/AjoutRemun", name="AjoutRemun")
+     * @Route("/AjoutRemun/{idEnqueteur}/{idSondage} ", name="AjoutRemun")
      */
-        public function AddRemun( Request $request){
+        public function AddRemun($idEnqueteur, $idSondage,Request $request , SondageRepository $sondageRepository){
                    
                 $remun=new NouveauType();
+                $sondage = new Sondage();
+                $sondage=$sondageRepository->find($idSondage);
                 $form= $this->createForm(NewRemunerationType::class, $remun);
                 $form->handleRequest($request);
              
                 if ($form->isSubmitted() && $form->isValid()){
+                   $remun->setSondage($sondage);
                    $this->em->persist($remun);
                    $this->em->flush();
-                   return $this->redirectToRoute("AjoutRemun");
+                   return $this->redirectToRoute("sondage_index", ['idEnqueteur'=> $idEnqueteur ]);
                 }
                 return $this->render('Remuneration/AjoutRemun.html.twig',[
                     'remuneration'=>$remun,
                     'form'=>$form->createView()]);
                 }
                       
-              
+                
         }

@@ -80,22 +80,18 @@ public function new(Request $request,$idSondage, $idEnqueteur, SondageRepository
 
     $form=$this->createForm(QuestionType::class,$question);
     $form->handleRequest($request);
-
     $sondage=$sondageRepository->find($idSondage);
-
     if ($form->isSubmitted()&& $form->isValid() ) {
         $em= $this->getDoctrine()->getManager();
-
         $question->setSondage($sondage);
         $em->persist($question);
-
-
         $em->flush();
         return $this->render('question/neww.html.twig',[
             'sondage' => $sondage,
             'question'=>$question,
             'idEnqueteur'=>$idEnqueteur,
             'form' => $form->createView(),
+            'idSondage' => $idSondage
         ]);
 
     }

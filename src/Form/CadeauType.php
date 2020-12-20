@@ -13,8 +13,8 @@ class CadeauType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('contenu' , null , ['label'=>'Type du sujet  : '])
-            ->add('imageFile' , VichImageType::class , ['required'=>false ,'label'=>'Photo du sujet  : '])
+            ->add('contenu' , null , ['label'=>'Type du cadeau  : '])
+            ->add('imageFile' , VichImageType::class , ['required'=>false ,'label'=>'Photo du cadeau  : '])
         ;
     }
 

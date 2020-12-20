@@ -19,22 +19,20 @@ class CadeauRepository extends ServiceEntityRepository
         parent::__construct($registry, Cadeau::class);
     }
 
-    // /**
-    //  * @return Cadeau[] Returns an array of Cadeau objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Cadeau[] Returns an array of Cadeau objects
+      */
+    
+    public function findByIdSondage($value)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+            ->andWhere('c.sondage = :val')
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Cadeau

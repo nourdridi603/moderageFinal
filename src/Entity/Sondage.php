@@ -56,6 +56,11 @@ class Sondage
      */
     private $questions;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $remun;
+
     public function __construct()
     {
        
@@ -186,6 +191,18 @@ class Sondage
                 $question->setSondage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRemun(): ?string
+    {
+        return $this->remun;
+    }
+
+    public function setRemun(string $remun): self
+    {
+        $this->remun = $remun;
 
         return $this;
     }

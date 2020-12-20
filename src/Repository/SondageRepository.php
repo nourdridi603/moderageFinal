@@ -19,6 +19,23 @@ class SondageRepository extends ServiceEntityRepository
         parent::__construct($registry, Sondage::class);
     }
 
+     /**
+     * @return Sondage[] Returns an array of Sondage objects
+    */
+    
+    public function findByIdEnqueteur($idEnqueteur)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.enqueteur = :val')
+            ->setParameter('val', $idEnqueteur)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    
+   
     // /**
     //  * @return Sondage[] Returns an array of Sondage objects
     //  */

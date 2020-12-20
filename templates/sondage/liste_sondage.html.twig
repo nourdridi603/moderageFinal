@@ -37,7 +37,7 @@
       
 
       </ul>
-               <a style=" margin:1% color:#10aeda; border-color: #10aeda; background-color:#10aeda; "class="btn btn-primary" href="{{path('accueil')}}">Se déconnecter</a>
+               <a style=" margin:1% color:#10aeda; border-color: #10aeda; background-color:#10aeda; "class="btn btn-primary" href="{{path('app_logout')}}">Se déconnecter</a>
 
     </div>
   </div>
@@ -51,8 +51,8 @@
             <thead>
                 <tr style="background-color:#10aeda30">
                     <th scope="row" style="text-align:center;">Titre </th>
-                    
                     <th scope="row" style="text-align:center;" >Nombre de questions </th>
+                   
                 </tr>
             </thead>
             <tbody>
@@ -62,7 +62,12 @@
                 
                     <td style="text-align:center;">{{sondage.titre}} </td>
                     <td style="text-align:center;"> {{sondage.nbQuestion}}  </td>
-                    <td style="text-align:center;"> <button class="btn btn-primary" style="background-color:#10aeda30; border-color:#10aeda30; color:black"> Répondre </button></td>
+                    
+                    <td style="text-align:center;">
+                      <form action="{{ path('repondre', {'id':app.user.id, 'idSondage':sondage.id}) }}" >
+                        <button type="submit" class="btn btn-primary" style="background-color:#10aeda30; border-color:#10aeda30; color:black"> Répondre </button>
+                      </form> 
+                    </td>
                 </tr>
 
                 {% endfor %}

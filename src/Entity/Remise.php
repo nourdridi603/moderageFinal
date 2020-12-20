@@ -22,6 +22,11 @@ class Remise
      */
     private $pourcentage;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Sondage::class, cascade={"persist", "remove"})
+     */
+    private $sondage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +40,18 @@ class Remise
     public function setPourcentage(float $pourcentage): self
     {
         $this->pourcentage = $pourcentage;
+
+        return $this;
+    }
+
+    public function getSondage(): ?Sondage
+    {
+        return $this->sondage;
+    }
+
+    public function setSondage(?Sondage $sondage): self
+    {
+        $this->sondage = $sondage;
 
         return $this;
     }

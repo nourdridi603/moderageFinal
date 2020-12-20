@@ -27,6 +27,11 @@ class NouveauType
      */
     private $offre;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Sondage::class, cascade={"persist", "remove"})
+     */
+    private $sondage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class NouveauType
     public function setOffre(string $offre): self
     {
         $this->offre = $offre;
+
+        return $this;
+    }
+
+    public function getSondage(): ?Sondage
+    {
+        return $this->sondage;
+    }
+
+    public function setSondage(?Sondage $sondage): self
+    {
+        $this->sondage = $sondage;
 
         return $this;
     }

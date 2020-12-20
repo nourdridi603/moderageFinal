@@ -19,22 +19,22 @@ class NouveauTypeRepository extends ServiceEntityRepository
         parent::__construct($registry, NouveauType::class);
     }
 
-
-    /**
-      * @return NouveauType[] Returns an array of NouveauType objects
-      */
-    
-      public function findByIdSondage($value)
-      {
-          return $this->createQueryBuilder('n')
-              ->andWhere('n.sondage = :val')
-              ->setParameter('val', $value)
-              ->getQuery()
-              ->getResult()
-          ;
-      }
-      
-    
+    // /**
+    //  * @return NouveauType[] Returns an array of NouveauType objects
+    //  */
+    /*
+    public function findByExampleField($value)
+    {
+        return $this->createQueryBuilder('n')
+            ->andWhere('n.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('n.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    */
 
     /*
     public function findOneBySomeField($value): ?NouveauType
