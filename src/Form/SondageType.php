@@ -17,7 +17,7 @@ class SondageType extends AbstractType
         $builder
 
             ->add('titre',TextType::class,[
-                'label'=>'Entrez le titre du sondage',
+                'label'=>'Le titre du sondage',
                 'attr'=>
                     ['placeholder'=>'entrer le titre du sondage',
                         'style'=>'border:0;
@@ -26,14 +26,17 @@ class SondageType extends AbstractType
   width:50%;
   padding:8px 0 5px 0;
   font-size:16px;
-  color:black;'
+  color:black;
+  margin-left: 14%;
+
+  '
                     ]
             ])
             ->add('nbParticipant',TextType::class,[
 
-                'label'=>'Entrez le nombre de participant',
+                'label'=>'Le nombre de participants',
                 'attr'=>
-                    ['placeholder'=>'entrer le nombre des participants maximal'
+                    ['placeholder'=>'Entrez le nombre des participants maximal'
                         ,
                         'style'=>'border:0;
   border-bottom:1px solid #555;  
@@ -41,7 +44,10 @@ class SondageType extends AbstractType
   width:50%;
   padding:8px 0 5px 0;
   font-size:16px;
-  color:black;'
+  color:black;
+  margin-left: 6%;
+
+  '
                     ]
 
             ])

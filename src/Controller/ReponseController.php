@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Sondage;
 use App\Entity\Option;
 use App\Entity\Question;
+use App\Entity\Reponse;
+use App\Entity\User;
 use App\Form\SondageType;
 use App\Repository\SondageRepository;
 use App\Repository\ReponseRepository;
@@ -47,12 +49,20 @@ class ReponseController extends AbstractController
     public function RecupererReponse($id, $idSondage){
         $repo1=$this->getDoctrine()->getRepository(Question::class);        
         $Questions=$repo1->findByNbrSondage($idSondage);        
-        $tab = array();
+        $repo2=$this->getDoctrine()->getRepository(User::class);    
+       
+
         
          
         foreach($Questions as $question)
         {  
-            array_push($tab,$_POST[$question->getId()]);
+            $reponse=new Reponse();
+            $entityManager = $this->getDoctrine()->getManager();
+            $reponse->setQuestion($question);
+            $reponse->setUser($repo2->find($id));
+            $reponse->setText($_POST[$question->getId()]);
+            $entityManager->persist($reponse);
+            $entityManager->flush();
         }
 
         return $this->redirectToRoute('listesondage',[ 'idSonde'=>$id]);
