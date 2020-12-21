@@ -1,0 +1,28 @@
+
+<table>
+    
+        <tr>
+                
+        {% for k in tabK %}
+                 <td style="padding: 18px !important">
+                        
+                 {% for q in tabQ2 %}
+                        
+                                {% if q[0]==k %}
+                                       <p>Question :{{q[1]}} </p> 
+                                {% endif %}
+                        
+                 {% endfor %}
+                 <br>
+                 <p>{{k}} </p>
+                 <br>
+                </td>
+        {% endfor %}
+        </tr>
+        <tr>
+        {% for v in tabV %}
+                <td style="    text-align: center;">{{v}} sondés ont voté pour cette option</td> 
+        {% endfor %}
+        </tr>
+
+</table>

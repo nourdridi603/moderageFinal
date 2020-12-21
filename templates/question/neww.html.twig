@@ -53,7 +53,7 @@
     <h3 style="margin-right: 100px;margin-left: 100px;margin-top: 200px" class='neon-text'>Creer votre Question !</h3>
    <br/><br/>
         <h4 style="    margin-left: 93%;
-" class='neon-text'>  <a href="{{ path('ChoixRemun',{'idSondage':idSondage} )}}">terminer</a>
+" class='neon-text'>  <a href="{{ path('ChoixRemun',{'idSondage': sondage.id} )}}">terminer</a>
         </h4>
         <h2 style="font-size: 15px">Sondage:</h2>
     <input style='width:300px;margin-left:10px;height:25px;padding:12px; background-color: white' type="text" id="titre" name="titre" value="{{sondage.titre}}" disabled />

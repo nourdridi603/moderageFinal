@@ -63,7 +63,7 @@ class RemunerationController extends AbstractController
                 $remise->setSondage($sondage);
                 $this->em->persist($remise);
                 $this->em->flush();
-                return $this->redirectToRoute("ChoixRemun");
+                return $this->redirectToRoute("ChoixRemun", ['idSondage'=> $idSondage] );
             }
             return $this->render('Remuneration/ChoixRemun.html.twig',[
                 'remise'=>$remise,

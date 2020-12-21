@@ -6,11 +6,13 @@
             <p> {{question.texte}} </p>
             <div style="margin-left: 20px;">
                 {% for option in Options %}
-                <div>
-                    <input type="radio" id="{{option.id}}" name="{{question.id}}" value="{{option.contenue}}">
-                    <label for="{{option.contenue}}">{{option.contenue}} </label>
-                </div>
-                {% endfor %}
+                    {% if option.question.id == question.id %}
+                        <div>
+                            <input type="radio" id="{{option.id}}" name="{{question.id}}" value="{{option.contenue}}">
+                            <label for="{{option.contenue}}">{{option.contenue}} </label>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
             </div>
         {% endfor %}
     <button type="submit">Envoyer</button>
